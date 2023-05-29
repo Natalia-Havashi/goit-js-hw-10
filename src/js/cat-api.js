@@ -1,35 +1,17 @@
-// export function fetchBreeds(name){
-//     return fetch('${BASE_URL}${BREEDS_ENDP}')
-//     .then(response => {
-//         if(!response.ok){
-//             throw new Error(response.statusText);
-//         }
-//         return response.json()
-//     })
-// };
 
+const API_KEY = 'live_80ex4wf8IS4bu0YKx7Js7p6YcQ1sFTSyysCT1nxiV8Wz2kpRphEWdFc3CgyQaagq';
+const BASE_URL = 'https://api.thecatapi.com/v1/';
+const BREEDS = 'breeds';
+const IMG_SEARCH = 'images/search';
 
+function fetchBreeds() {
+  return fetch(`${BASE_URL}${BREEDS}`)
+      .then(response => response.json());
+}
 
+function fetchCatByBreed(breedId){
+  return fetch(`${BASE_URL}${IMG_SEARCH}?limit=1&breed_ids=${breedId}&api_key=${API_KEY}`)
+      .then(data => data.json());
+}
 
-// export function fetchCatByBreed(breedId){
-//     return fetch('')
-//     .then(resp =>{
-//         if(!resp.ok){
-//             throw new Error(resp.statusText);
-//         }
-//         return resp.json()
-//     })
-// }
-
-
-// export function fetchCountries(name) {
-//     const url = `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`;
-  
-//     return fetch(url).then(response => {
-//       if (!response.ok) {
-//         throw new Error(response.status);
-//       }
-  
-//       return response.json();
-//     });
-//   }
+export { fetchBreeds, fetchCatByBreed };
