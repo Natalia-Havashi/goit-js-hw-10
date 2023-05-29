@@ -1,33 +1,39 @@
 import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
 
 
-    select = document.querySelector('.breed-select')
-    catInfo = document.querySelector('.cat-info')
-    loader = document.querySelector('.loader')
-    error = document.querySelector('.error')
+    const select = document.querySelector('.breed-select')
+    const catInfo = document.querySelector('.cat-info')
+    const loader = document.querySelector('.loader')
+    const error = document.querySelector('.error')
+
+    
+    new SlimSelect({
+        select: '.breed-select'
+      })
 
 
 error.setAttribute('hidden', '');
 
 fetchBreeds()
     .then(data => {
-        const murkup = data.map(c => `<option value="${c.id}">${c.name}</option>`).join('');     
+        const murkup = data.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');     
         select.innerHTML = murkup;      
     })
     .catch(error => {
         error.removeAttribute('hidden', '');
         console.log(error)
     });;
+
+    
         
 select.addEventListener('change', (elem) => {
-   loader.removeAttribute('hidden', '');
+   loader.classList.add('hidden');
         fetchCatByBreed(elem.target.value)
             .then(data => {             
                 catInfo.innerHTML = createMurkup(data);
-                loader.setAttribute('hidden', '');
             })
             .catch(error => {
-                error.removeAttribute('hidden', '');
+                error.classList.remove('hidden');
                 console.log(error)
             });
 });
@@ -38,7 +44,9 @@ function createMurkup(cat) {
                 <div class="cat-description">
                 <h2 class="name-cat">${cat.breeds[0].name}</h2>
                 <p class="description">${cat.breeds[0].description}</p>
-                <p><h3 class="name-cat">Temperament:</h3> ${cat.breeds[0].temperament}</p>
+                <p>
+                <h3 class="name-cat">Temperament:</h3> 
+                ${cat.breeds[0].temperament}</p>
             </div>                        
         `).join(''); 
     return murkup;
