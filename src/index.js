@@ -7,16 +7,18 @@ import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
     const error = document.querySelector('.error')
 
     
-    new SlimSelect({
-        select: '.breed-select'
-      })
+    // new SlimSelect({
+    //     select: '.breed-select'
+    //   })
 
 
 error.setAttribute('hidden', '');
 
 fetchBreeds()
     .then(data => {
-        const murkup = data.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');     
+        const murkup = data
+        .map(cat => `<option value="${cat.id}">${cat.name}</option>`)
+        .join('');     
         select.innerHTML = murkup;      
     })
     .catch(error => {
@@ -39,7 +41,8 @@ select.addEventListener('change', (elem) => {
 });
 
 function createMurkup(cat) { 
-    const murkup = cat.map(cat =>
+    const murkup = cat
+    .map(cat =>
         `   <img class="cat-img" src="${cat.url}" width="350"/>
                 <div class="cat-description">
                 <h2 class="name-cat">${cat.breeds[0].name}</h2>
