@@ -6,31 +6,44 @@ import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
     const loader = document.querySelector('.loader')
     const error = document.querySelector('.error')
 
-    
-    // new SlimSelect({
-    //     select: '.breed-select'
-    //   })
-
 
 error.setAttribute('hidden', '');
 
-fetchBreeds()
-    .then(data => {
-        const murkup = data
-        .map(cat => `<option value="${cat.id}">${cat.name}</option>`)
-        .join('');     
-        select.innerHTML = murkup;      
-    })
-    .catch(error => {
-        error.removeAttribute('hidden', '');
-        console.log(error)
-    });;
+// fetchBreeds()
+//     .then(data => {
+//         const murkup = data
+//         .map(cat => `<option value="${cat.id}">${cat.name}</option>`)
+//         .join('');     
+//         select.innerHTML = murkup;      
+//     })
+//     .catch(error => {
+//         error.removeAttribute('hidden', '');
+//         console.log(error)
+//     });;
+
+
+    function generateOptionsMarkup(data) {
+        const markup = data
+          .map(cat => `<option value="${cat.id}">${cat.name}</option>`)
+          .join('');
+        return markup; 
+      }
+      
+      fetchBreeds()
+        .then(data => {
+          const markup = generateOptionsMarkup(data);
+          select.innerHTML = markup;
+        })
+        .catch(error => {
+          error.removeAttribute('hidden', '');
+          console.log(error);
+        });
 
     
         
 select.addEventListener('change', (elem) => {
    loader.classList.add('hidden');
-        fetchCatByBreed(elem.target.value)
+        fetchBreeds(elem.target.value)
             .then(data => {             
                 catInfo.innerHTML = createMurkup(data);
             })

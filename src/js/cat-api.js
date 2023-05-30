@@ -4,14 +4,37 @@ const BASE_URL = 'https://api.thecatapi.com/v1/';
 const BREEDS = 'breeds';
 const IMG_SEARCH = 'images/search';
 
-function fetchBreeds() {
-  return fetch(`${BASE_URL}${BREEDS}`)
-      .then(response => response.json());
+
+function fetchBreeds(breedId = '') {
+  let url;
+  if (breedId) {
+    url = `${BASE_URL}${IMG_SEARCH}?limit=1&breed_ids=${breedId}&api_key=${API_KEY}`;
+  } else {
+    url = `${BASE_URL}${BREEDS}`;
+  }
+
+  return fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      return response.json();
+    });
 }
 
-function fetchCatByBreed(breedId){
-  return fetch(`${BASE_URL}${IMG_SEARCH}?limit=1&breed_ids=${breedId}&api_key=${API_KEY}`)
-      .then(data => data.json());
-}
+// function fetchBreeds() {
+//   return fetch(`${BASE_URL}${BREEDS}`)
+//       .then(response => {
+//       if(!response.ok){
+//         throw new Error(response.statusText)
+//       }
+//       return response.json();
+// })
+// }
 
-export { fetchBreeds, fetchCatByBreed };
+// function fetchCatByBreed(breedId){
+//   return fetch(`${BASE_URL}${IMG_SEARCH}?limit=1&breed_ids=${breedId}&api_key=${API_KEY}`)
+//       .then(data => data.json());
+// }
+
+export { fetchBreeds };
