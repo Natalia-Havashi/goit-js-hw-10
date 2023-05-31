@@ -22,19 +22,4 @@ function fetchBreeds(breedId = '') {
     });
 }
 
-// function fetchBreeds() {
-//   return fetch(`${BASE_URL}${BREEDS}`)
-//       .then(response => {
-//       if(!response.ok){
-//         throw new Error(response.statusText)
-//       }
-//       return response.json();
-// })
-// }
-
-// function fetchCatByBreed(breedId){
-//   return fetch(`${BASE_URL}${IMG_SEARCH}?limit=1&breed_ids=${breedId}&api_key=${API_KEY}`)
-//       .then(data => data.json());
-// }
-
 export { fetchBreeds };

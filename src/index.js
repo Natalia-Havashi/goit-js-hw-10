@@ -9,19 +9,6 @@ import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
 
 error.setAttribute('hidden', '');
 
-// fetchBreeds()
-//     .then(data => {
-//         const murkup = data
-//         .map(cat => `<option value="${cat.id}">${cat.name}</option>`)
-//         .join('');     
-//         select.innerHTML = murkup;      
-//     })
-//     .catch(error => {
-//         error.removeAttribute('hidden', '');
-//         console.log(error)
-//     });;
-
-
     function generateOptionsMarkup(data) {
         const markup = data
           .map(cat => `<option value="${cat.id}">${cat.name}</option>`)
